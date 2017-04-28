@@ -6,12 +6,18 @@ triangle:
 uniform:
 	g++ -o uniform uniform.cpp $(LDFLAGS)
 
+colored:
+	g++ -o colored colored.cpp $(LDFLAGS)
+
 cleant:
 	rm triangle
 
 cleanu:
 	rm uniform
 
-all: triangle uniform
+cleanc:
+	rm colored
 
-clean: cleant cleanu
+all: triangle uniform colored
+
+clean: cleant cleanu cleanc
