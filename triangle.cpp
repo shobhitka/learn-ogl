@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 28 April 2017 03:16:09 PM IST
+ * Last Modified : Friday 28 April 2017 03:25:41 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -15,6 +15,7 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <stdlib.h>
 
 GLfloat vertices[] = {
 	// first triangle
@@ -48,8 +49,28 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-int main()
+void usage()
 {
+	std::cout << "./triangle [0|1]\n";
+	std::cout << "1 => Enable wireframe\n";
+	std::cout << "0 => Disable wireframe (default)\n";
+}
+
+int main(int argc, char *argv[])
+{
+	int wireframe = 0;
+	if (argc > 2) {
+		usage();
+		exit(0);
+	}
+
+	if (argc == 1)
+		wireframe = 0;
+	else
+		wireframe = atoi(argv[1]);
+
+	std::cout << "wireframe = " << wireframe << "\n";
+
 	// Init GLFW
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -133,6 +154,9 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
+
+	if (wireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	while(!glfwWindowShouldClose(window))
 	{
