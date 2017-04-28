@@ -3,5 +3,15 @@ LDFLAGS=-L/usr/local/lib/ -lglfw -pthread -lGLEW -lGLU -lGL -lrt -lXrandr -lXxf8
 triangle:
 	g++ -o triangle triangle.cpp $(LDFLAGS)
 
-clean:
+uniform:
+	g++ -o uniform uniform.cpp $(LDFLAGS)
+
+cleant:
 	rm triangle
+
+cleanu:
+	rm uniform
+
+all: triangle uniform
+
+clean: cleant cleanu
