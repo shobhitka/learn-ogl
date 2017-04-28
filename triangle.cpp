@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 27 April 2017 07:30:47 PM IST
+ * Last Modified : Friday 28 April 2017 03:16:09 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -17,9 +17,14 @@
 #include <iostream>
 
 GLfloat vertices[] = {
+	// first triangle
 	-0.3f, -0.3f, 0.0f,
 	0.3f, -0.3f, 0.0f,
-	0.0f, 0.3f, 0.0f
+	0.0f, 0.3f, 0.0f,
+	// second triangle
+	0.3f, -0.3f, 0.0f,
+	0.0f, 0.3f, 0.0f,
+	0.6f, 0.3f, 0.0f,
 };
 
 const GLchar* vertexShaderSource = "#version 330 core\n"
@@ -138,7 +143,7 @@ int main()
 
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
