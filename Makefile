@@ -1,5 +1,8 @@
 LDFLAGS=-L/usr/local/lib/ -lglfw -pthread -lGLEW -lGLU -lGL -lrt -lXrandr -lXxf86vm -lXi -lXinerama -lX11
 
+gltest:
+	g++ -o gltest gltest.cpp shader.cpp $(LDFLAGS)
+
 triangle:
 	g++ -o triangle triangle.cpp $(LDFLAGS)
 
@@ -18,6 +21,9 @@ cleanu:
 cleanc:
 	rm colored
 
-all: triangle uniform colored
+cleang:
+	rm gltest
 
-clean: cleant cleanu cleanc
+all: triangle uniform colored gltest
+
+clean: cleant cleanu cleanc cleang
