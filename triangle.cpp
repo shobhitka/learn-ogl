@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 28 April 2017 03:25:41 PM IST
+ * Last Modified : Friday 28 April 2017 03:35:44 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -18,14 +18,18 @@
 #include <stdlib.h>
 
 GLfloat vertices[] = {
-	// first triangle
+	// only unique veritices
 	-0.3f, -0.3f, 0.0f,
 	0.3f, -0.3f, 0.0f,
 	0.0f, 0.3f, 0.0f,
-	// second triangle
-	0.3f, -0.3f, 0.0f,
-	0.0f, 0.3f, 0.0f,
 	0.6f, 0.3f, 0.0f,
+};
+
+GLuint indices [] = {
+	// first triangle
+	0, 1, 2,
+	1, 2, 3
+	// second triangle
 };
 
 const GLchar* vertexShaderSource = "#version 330 core\n"
@@ -142,6 +146,9 @@ int main(int argc, char *argv[])
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
+	GLuint EBO;
+	glGenBuffers(1, &EBO);
+
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
 
@@ -151,6 +158,8 @@ int main(int argc, char *argv[])
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
@@ -167,7 +176,7 @@ int main(int argc, char *argv[])
 
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
