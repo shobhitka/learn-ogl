@@ -2,4 +2,8 @@
 !*.cpp
 !*.h
 !*.tux
-!Makefile
+!Makefile.*
+!configure.ac
+!*.sh
+Makefile.in
+config.h
