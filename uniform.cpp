@@ -3,7 +3,7 @@
  * File Name : uniform.cpp
  * Purpose :
  * Creation Date : 28-04-2017
- * Last Modified : Friday 28 April 2017 04:27:25 PM IST
+ * Last Modified : Friday 05 May 2017 07:57:30 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -18,20 +18,20 @@
 #include <stdlib.h>
 #include <math.h>
 
-GLfloat vertices[] = {
+static GLfloat vertices[] = {
 	// only unique veritices
 	-0.3f, -0.3f, 0.0f,
 	0.3f, -0.3f, 0.0f,
 	0.0f, 0.3f, 0.0f,
 };
 
-const GLchar* vertexShaderSource = "#version 420 core\n"
+static const GLchar* vertexShaderSource = "#version 420 core\n"
 "layout (location = 0) in vec3 position;\n"
 "void main()\n"
 "{\n"
 "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
 "}\0";
-const GLchar* fragmentShaderSource = "#version 420 core\n"
+static const GLchar* fragmentShaderSource = "#version 420 core\n"
 "out vec4 color;\n"
 "uniform vec4 mycolor;\n"
 "void main()\n"
@@ -39,66 +39,8 @@ const GLchar* fragmentShaderSource = "#version 420 core\n"
 "color = mycolor;\n"
 "}\n\0";
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+int uniform_test(GLFWwindow* window, int wireframe)
 {
-	// When a user presses the escape key, we set the WindowShouldClose property to true,
-	// closing the application
-	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
-void usage()
-{
-	std::cout << "./triangle [0|1]\n";
-	std::cout << "1 => Enable wireframe\n";
-	std::cout << "0 => Disable wireframe (default)\n";
-}
-
-int main(int argc, char *argv[])
-{
-	int wireframe = 0;
-	if (argc > 2) {
-		usage();
-		exit(0);
-	}
-
-	if (argc == 1)
-		wireframe = 0;
-	else
-		wireframe = atoi(argv[1]);
-
-	std::cout << "wireframe = " << wireframe << "\n";
-
-	// Init GLFW
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Shobhit Learns OpenGL", NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-
-	glfwSetKeyCallback(window, key_callback);
-
-	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK)
-	{
-		std::cout << "Failed to initialize GLEW" << std::endl;
-		return -1;
-	}
-
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-
-	glViewport(0, 0, width, height);
-
 	GLint success;
 	GLchar infoLog[512];
 
@@ -179,8 +121,6 @@ int main(int argc, char *argv[])
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-
-	glfwTerminate();
 
 	return 0;
 }
