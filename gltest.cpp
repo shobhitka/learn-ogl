@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 05 May 2017 08:02:23 PM IST
+ * Last Modified : Wednesday 10 May 2017 12:07:00 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -128,10 +128,10 @@ int main(int argc, char *argv[])
 				simple_triangle(window, wireframe);
 				break;
 			case 2:
-				colored_triangle(window, wireframe);
+				uniform_test(window, wireframe);
 				break;
 			case 3:
-				uniform_test(window, wireframe);
+				colored_triangle(window, wireframe);
 				break;
 			case 4:
 				moving_triangle(window, wireframe);
