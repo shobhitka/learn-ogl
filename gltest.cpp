@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 11 May 2017 03:47:24 PM IST
+ * Last Modified : Thursday 11 May 2017 03:55:00 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -88,9 +88,10 @@ int main(int argc, char *argv[])
 			wireframe = 1;
 	}
 
+	reset_screen();
+	std::cout << "Using WIREFRAME: " << wireframe << std::endl;
+
 	while(1) {
-		reset_screen();
-		std::cout << "Using WIREFRAME: " << wireframe << std::endl;
 		menu();
 		int input = get_int_input("Enter command :", 0, TEST_SAMPLE_COUNT);
 
@@ -149,6 +150,7 @@ int main(int argc, char *argv[])
 		};
 
 		glfwTerminate();
+		cout << endl;
 	}
 		
 	reset_screen();
