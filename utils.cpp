@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Thursday 11 May 2017 03:39:11 PM IST
+   * Last Modified : Thursday 11 May 2017 03:47:09 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -14,7 +14,7 @@
 #include <sstream>  
 #include <fstream>
 #include <stdlib.h>
-#include "shader.h"
+#include <utils.h>
 #include <SOIL/SOIL.h>
 
 using namespace std;

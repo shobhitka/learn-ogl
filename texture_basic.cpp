@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 11 May 2017 03:38:28 PM IST
+ * Last Modified : Thursday 11 May 2017 03:47:49 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -17,7 +17,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <SOIL/SOIL.h>
-#include "shader.h"
+#include <utils.h>
 
 #define VERTEX_SHADER_SIMPLE_TRIANGLE	"vshader_btext.tux"
 #define FRAGMENT_SHADER_SIMPLE_TRIANGLE	"fshader_btext.tux"

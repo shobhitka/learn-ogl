@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 05 May 2017 07:55:29 PM IST
+ * Last Modified : Thursday 11 May 2017 03:47:40 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -15,7 +15,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <stdlib.h>
-#include "shader.h"
+#include <utils.h>
 
 static GLfloat vertices[] = {
 	// only unique veritices
