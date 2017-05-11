@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Thursday 11 May 2017 03:47:09 PM IST
+   * Last Modified : Thursday 11 May 2017 06:28:47 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -14,6 +14,7 @@
 #include <sstream>  
 #include <fstream>
 #include <stdlib.h>
+#include <string.h>
 #include <utils.h>
 #include <SOIL/SOIL.h>
 
@@ -175,4 +176,15 @@ texture::~texture()
 GLuint texture::get_id()
 {
 	return id;
+}
+
+void texture::set_tex_unit(int pid, int unit)
+{
+	char szParam[32];
+	memset(szParam, 0, 32);
+	sprintf(szParam, "myTexture%d", unit);
+
+	glActiveTexture(GL_TEXTURE0 + unit);
+	glBindTexture(GL_TEXTURE_2D, id);
+	glUniform1i(glGetUniformLocation(pid, szParam), 0);
 }

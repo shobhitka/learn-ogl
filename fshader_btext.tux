@@ -4,9 +4,9 @@ in vec2 mytexcord;
 
 out vec4 color;
 
-uniform sampler2D myTexture;
+uniform sampler2D myTexture0;
 
 void main()
 {
-	color = texture(myTexture, mytexcord);
+	color = texture(myTexture0, mytexcord);
 }

@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 11 May 2017 03:47:49 PM IST
+ * Last Modified : Thursday 11 May 2017 06:05:42 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -97,7 +97,7 @@ int simple_texture(GLFWwindow* window)
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glBindTexture(GL_TEXTURE_2D, ptexture->get_id());
+		ptexture->set_tex_unit(shaderProgram->get_id(), 0);
 
 		glUseProgram(shaderProgram->get_id());
 		glBindVertexArray(VAO);
