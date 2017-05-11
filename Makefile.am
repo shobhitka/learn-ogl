@@ -4,4 +4,5 @@ LDADD = $(DEPS_LIBS) -lSOIL
 
 bin_PROGRAMS = gltest
 gltest_SOURCES = gltest.cpp shader.cpp moving_triangle.cpp	\
-				 triangle.cpp colored.cpp uniform.cpp
+				 triangle.cpp colored.cpp uniform.cpp	\
+				 texture_basic.cpp

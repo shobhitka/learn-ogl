@@ -1,0 +1,12 @@
+#version 420 core
+in vec3 mycolor;
+in vec2 mytexcord;
+
+out vec4 color;
+
+uniform sampler2D myTexture;
+
+void main()
+{
+	color = texture(myTexture, mytexcord);
+}
