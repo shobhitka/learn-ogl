@@ -3,7 +3,7 @@
    * File Name : shader.h
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Friday 28 April 2017 07:35:07 PM IST
+   * Last Modified : Thursday 11 May 2017 03:26:34 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -31,6 +31,16 @@ class program {
 		~program();
 		GLuint get_id();
 		void use();
+};
+
+class texture {
+	private:
+		GLuint id;
+
+	public:
+		texture(const char *image_file, GLenum type, int load_type);
+		~texture();
+		GLuint get_id();
 };
 
 #endif // __SHADER_H__

@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Friday 28 April 2017 07:36:05 PM IST
+   * Last Modified : Thursday 11 May 2017 03:39:11 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -15,6 +15,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include "shader.h"
+#include <SOIL/SOIL.h>
 
 using namespace std;
 
@@ -114,4 +115,64 @@ GLuint program::get_id()
 void program::use()
 {
 	glUseProgram(id);
+}
+
+texture::texture(const char *image_file, GLenum type, int load_type)
+{
+	if (!image_file) {
+		std::cout << "ERROR::TEXTURE::CREATION_FAIL::INAVLID_PARAMS" << std::endl;
+		throw -1;
+	}
+
+	switch(type) {
+		case GL_TEXTURE_2D:
+			break;
+		case GL_TEXTURE_1D:
+		case GL_TEXTURE_3D:
+		default:
+			std::cout << "ERROR::TEXTURE::CREATION_FAIL::UNSUPPORTED_TYPE" << std::endl;
+			throw -2;
+	}
+
+	switch(load_type) {
+		case SOIL_LOAD_RGB:
+			break;
+		case SOIL_LOAD_RGBA:
+		default:
+			std::cout << "ERROR::TEXTURE::CREATION_FAIL::UNSUPPORTED_IMAGE_FROMAT" << std::endl;
+			throw -3;
+	}
+
+	int w, h;
+	unsigned char *image = SOIL_load_image(image_file, &w, &h, 0, load_type);
+	if (!image) {
+		std::cout << "ERROR::TEXTURE::CREATION_FAIL::SOIL::LOAD_IMAGE_FAIL" << std::endl;
+		throw -4;
+	}
+
+	// Create texture
+	glGenTextures(1, &id);
+	glBindTexture(type, id);
+
+	// Set the texture wrapping parameters
+	glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
+	glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// Set texture filtering parameters
+	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(type, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(type);
+	SOIL_free_image_data(image);
+	glBindTexture(type, 0);
+}
+
+texture::~texture()
+{
+}
+
+GLuint texture::get_id()
+{
+	return id;
 }
