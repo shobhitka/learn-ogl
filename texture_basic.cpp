@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 11 May 2017 06:05:42 PM IST
+ * Last Modified : Thursday 11 May 2017 06:55:51 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -21,7 +21,8 @@
 
 #define VERTEX_SHADER_SIMPLE_TRIANGLE	"vshader_btext.tux"
 #define FRAGMENT_SHADER_SIMPLE_TRIANGLE	"fshader_btext.tux"
-#define TEXTURE_IMAGE_FILE				"textures/wall.jpg"
+#define TEXTURE0_IMAGE_FILE				"textures/wall.jpg"
+#define TEXTURE1_IMAGE_FILE				"textures/awesomeface.png"
 
 static GLfloat vertices[] = {
 	// only unique veritices for square
@@ -42,7 +43,8 @@ static GLuint indices [] = {
 int simple_texture(GLFWwindow* window)
 {
 	class program *shaderProgram = NULL;
-	class texture *ptexture = NULL;
+	class texture *ptexture0 = NULL;
+	class texture *ptexture1 = NULL;
 
 	try {
 		class shader *vertexshader = new shader(VERTEX_SHADER_SIMPLE_TRIANGLE, GL_VERTEX_SHADER);
@@ -80,7 +82,8 @@ int simple_texture(GLFWwindow* window)
 
 	// Load and create texture
 	try {
-		ptexture = new texture(TEXTURE_IMAGE_FILE, GL_TEXTURE_2D, SOIL_LOAD_RGB);
+		ptexture0 = new texture(TEXTURE0_IMAGE_FILE, GL_TEXTURE_2D, SOIL_LOAD_RGB);
+		ptexture1 = new texture(TEXTURE1_IMAGE_FILE, GL_TEXTURE_2D, SOIL_LOAD_RGB);
 	} catch (int e) {
 		std::cout << "texture creation failed with errcode: " << e << std::endl;
 		glDeleteVertexArrays(1, &VAO);
@@ -97,7 +100,8 @@ int simple_texture(GLFWwindow* window)
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		ptexture->set_tex_unit(shaderProgram->get_id(), 0);
+		ptexture0->set_tex_unit(shaderProgram->get_id(), 0);
+		ptexture1->set_tex_unit(shaderProgram->get_id(), 1);
 
 		glUseProgram(shaderProgram->get_id());
 		glBindVertexArray(VAO);
@@ -111,7 +115,8 @@ int simple_texture(GLFWwindow* window)
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 	delete shaderProgram;
-	delete ptexture;
+	delete ptexture0;
+	delete ptexture1;
 
 	return 0;
 }

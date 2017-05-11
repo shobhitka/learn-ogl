@@ -10,5 +10,5 @@ void main()
 {
 	gl_Position = vec4(position, 1.0f);
 	mycolor = color;
-	mytexcord = texcord;
+	mytexcord = vec2(texcord.x, 1.0f - texcord.y);
 }

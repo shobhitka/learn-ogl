@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Thursday 11 May 2017 06:28:47 PM IST
+   * Last Modified : Thursday 11 May 2017 06:40:51 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -180,11 +180,11 @@ GLuint texture::get_id()
 
 void texture::set_tex_unit(int pid, int unit)
 {
-	char szParam[32];
-	memset(szParam, 0, 32);
+	char szParam[12];
+	memset(szParam, 0, 12);
 	sprintf(szParam, "myTexture%d", unit);
 
 	glActiveTexture(GL_TEXTURE0 + unit);
 	glBindTexture(GL_TEXTURE_2D, id);
-	glUniform1i(glGetUniformLocation(pid, szParam), 0);
+	glUniform1i(glGetUniformLocation(pid, szParam), unit);
 }
