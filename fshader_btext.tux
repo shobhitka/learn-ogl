@@ -9,5 +9,5 @@ uniform sampler2D myTexture1;
 
 void main()
 {
-	color = mix(texture(myTexture0, mytexcord), texture(myTexture1, mytexcord), 0.5);
+	color = mix(texture(myTexture0, mytexcord).rgba, texture(myTexture1, mytexcord).rgba, vec4(texture(myTexture1, mytexcord).a) * 0.3);
 }

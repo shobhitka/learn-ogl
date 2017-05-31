@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Thursday 11 May 2017 06:40:51 PM IST
+   * Last Modified : Wednesday 31 May 2017 04:14:52 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -120,6 +120,8 @@ void program::use()
 
 texture::texture(const char *image_file, GLenum type, int load_type)
 {
+	int tformat = GL_RGB;
+
 	if (!image_file) {
 		std::cout << "ERROR::TEXTURE::CREATION_FAIL::INAVLID_PARAMS" << std::endl;
 		throw -1;
@@ -137,8 +139,11 @@ texture::texture(const char *image_file, GLenum type, int load_type)
 
 	switch(load_type) {
 		case SOIL_LOAD_RGB:
+			tformat = GL_RGB;
 			break;
 		case SOIL_LOAD_RGBA:
+			tformat = GL_RGBA;
+			break;
 		default:
 			std::cout << "ERROR::TEXTURE::CREATION_FAIL::UNSUPPORTED_IMAGE_FROMAT" << std::endl;
 			throw -3;
@@ -163,7 +168,7 @@ texture::texture(const char *image_file, GLenum type, int load_type)
 	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glTexImage2D(type, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(type, 0, tformat, w, h, 0, tformat, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(type);
 	SOIL_free_image_data(image);
 	glBindTexture(type, 0);

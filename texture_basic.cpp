@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 11 May 2017 06:55:51 PM IST
+ * Last Modified : Wednesday 31 May 2017 04:15:04 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -83,7 +83,7 @@ int simple_texture(GLFWwindow* window)
 	// Load and create texture
 	try {
 		ptexture0 = new texture(TEXTURE0_IMAGE_FILE, GL_TEXTURE_2D, SOIL_LOAD_RGB);
-		ptexture1 = new texture(TEXTURE1_IMAGE_FILE, GL_TEXTURE_2D, SOIL_LOAD_RGB);
+		ptexture1 = new texture(TEXTURE1_IMAGE_FILE, GL_TEXTURE_2D, SOIL_LOAD_RGBA);
 	} catch (int e) {
 		std::cout << "texture creation failed with errcode: " << e << std::endl;
 		glDeleteVertexArrays(1, &VAO);
