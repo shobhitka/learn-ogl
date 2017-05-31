@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Wednesday 31 May 2017 04:51:41 PM IST
+ * Last Modified : Wednesday 31 May 2017 06:01:42 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -93,6 +93,8 @@ int simple_texture(GLFWwindow* window)
 		return e;
 	}
 
+	GLfloat alpha = 0.0;
+	GLfloat step = 0.0075;
 	while(!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
@@ -104,6 +106,17 @@ int simple_texture(GLFWwindow* window)
 		ptexture1->set_tex_unit(shaderProgram->get_id(), 1);
 
 		glUseProgram(shaderProgram->get_id());
+
+		GLint alphaloc = glGetUniformLocation(shaderProgram->get_id(), "alpha");
+
+		alpha = alpha + step;
+		if (alpha > 1.0)
+			step = -0.0075;
+		else if (alpha < 0.0)
+			step = 0.0075;
+
+		glUniform1f(alphaloc, alpha);
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

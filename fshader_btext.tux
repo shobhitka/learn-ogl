@@ -1,6 +1,7 @@
 #version 420 core
 in vec3 mycolor;
 in vec2 mytexcord;
+uniform float alpha;
 
 out vec4 color;
 
@@ -9,5 +10,5 @@ uniform sampler2D myTexture1;
 
 void main()
 {
-	color = mix(texture(myTexture0, mytexcord).rgba, texture(myTexture1, mytexcord).rgba, vec4(texture(myTexture1, mytexcord).a) * 0.3);
+	color = mix(texture(myTexture0, mytexcord).rgba, texture(myTexture1, mytexcord).rgba, vec4(texture(myTexture1, mytexcord).a) * alpha);
 }
