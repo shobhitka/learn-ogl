@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Wednesday 31 May 2017 04:15:04 PM IST
+ * Last Modified : Wednesday 31 May 2017 04:51:41 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -76,7 +76,7 @@ int simple_texture(GLFWwindow* window)
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 	glBindVertexArray(0);
 
