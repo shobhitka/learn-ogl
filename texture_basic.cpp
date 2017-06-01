@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Wednesday 31 May 2017 06:01:42 PM IST
+ * Last Modified : Thursday 01 June 2017 06:58:33 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -18,6 +18,9 @@
 #include <stdlib.h>
 #include <SOIL/SOIL.h>
 #include <utils.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #define VERTEX_SHADER_SIMPLE_TRIANGLE	"vshader_btext.tux"
 #define FRAGMENT_SHADER_SIMPLE_TRIANGLE	"fshader_btext.tux"
@@ -116,6 +119,17 @@ int simple_texture(GLFWwindow* window)
 			step = 0.0075;
 
 		glUniform1f(alphaloc, alpha);
+
+		glm::mat4 transform;
+
+		// rotate around z-axis by 90 degree
+		transform = glm::rotate(transform, glm::radians(90.0f), glm::vec3(0.0, 0.0, 0.1));
+
+		// scale 50%
+		transform = glm::scale(transform, glm::vec3(0.5, 0.5, 0.5));
+
+		GLint transloc = glGetUniformLocation(shaderProgram->get_id(), "transform");
+		glUniformMatrix4fv(transloc, 1, GL_FALSE, glm::value_ptr(transform));
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
