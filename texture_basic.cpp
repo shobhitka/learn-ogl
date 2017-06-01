@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 01 June 2017 06:58:33 PM IST
+ * Last Modified : Thursday 01 June 2017 07:17:06 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -123,10 +123,10 @@ int simple_texture(GLFWwindow* window)
 		glm::mat4 transform;
 
 		// rotate around z-axis by 90 degree
-		transform = glm::rotate(transform, glm::radians(90.0f), glm::vec3(0.0, 0.0, 0.1));
+		transform = glm::rotate(transform, (float) glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
 
-		// scale 50%
-		transform = glm::scale(transform, glm::vec3(0.5, 0.5, 0.5));
+		// translate
+		transform = glm::translate(transform, glm::vec3(0.3, -0.3, 0.0));
 
 		GLint transloc = glGetUniformLocation(shaderProgram->get_id(), "transform");
 		glUniformMatrix4fv(transloc, 1, GL_FALSE, glm::value_ptr(transform));
