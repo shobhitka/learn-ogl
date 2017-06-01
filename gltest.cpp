@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 11 May 2017 03:55:00 PM IST
+ * Last Modified : Thursday 01 June 2017 08:07:35 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -26,7 +26,7 @@ void reset_screen()
 	cout << "\033[2J\033[1;1H";
 }
 
-#define TEST_SAMPLE_COUNT	6
+#define TEST_SAMPLE_COUNT	7
 void menu()
 {
 	cout << "Supported Samples\n";
@@ -36,7 +36,8 @@ void menu()
 	cout << "3: Colored triangel\n";
 	cout << "4: Animated triangle moving across screen\n";
 	cout << "5: Basic texture example\n";
-	cout << "6: Exit\n";
+	cout << "6: Rotating 3D Cube\n";
+	cout << "7: Exit\n";
 	cout << "========================================\n";
 }
 
@@ -140,6 +141,9 @@ int main(int argc, char *argv[])
 				break;
 			case 5:
 				simple_texture(window);
+				break;
+			case 6:
+				simple_cube(window, 800, 600);
 				break;
 			case TEST_SAMPLE_COUNT:
 				cout << ("Thanks, bye.\n");
