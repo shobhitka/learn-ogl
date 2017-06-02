@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Wednesday 31 May 2017 04:14:52 PM IST
+   * Last Modified : Friday 02 June 2017 03:08:29 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -116,6 +116,12 @@ GLuint program::get_id()
 void program::use()
 {
 	glUseProgram(id);
+}
+
+void program::set_mat4(const char *name, glm::mat4 value)
+{
+	int loc = glGetUniformLocation(id, name);
+	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
 }
 
 texture::texture(const char *image_file, GLenum type, int load_type)

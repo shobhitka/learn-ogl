@@ -3,13 +3,16 @@
    * File Name : shader.h
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Thursday 11 May 2017 06:02:13 PM IST
+   * Last Modified : Friday 02 June 2017 03:03:03 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
 #ifndef __SHADER_H__
 #define __SHADER_H__
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 class shader {
 	private:
 		GLuint id;
@@ -31,6 +34,7 @@ class program {
 		~program();
 		GLuint get_id();
 		void use();
+		void set_mat4(const char *name, glm::mat4 value);
 };
 
 class texture {
