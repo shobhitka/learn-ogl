@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 02 June 2017 03:25:28 PM IST
+ * Last Modified : Friday 02 June 2017 04:26:39 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -93,7 +93,7 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
-int simple_cube(GLFWwindow* window, int width, int height)
+int simple_cube(GLFWwindow* window, int width, int height, int camera)
 {
 	class program *shaderProgram = NULL;
 	class texture *ptexture0 = NULL;
@@ -160,10 +160,17 @@ int simple_cube(GLFWwindow* window, int width, int height)
 
 		glBindVertexArray(VAO);
 
-		// View matrix
 		glm::mat4 view;
-		// note that we're translating the scene in the reverse direction of where we want to move
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		if (camera) {
+			float radius = 20.0f;
+			float camx = sin(glfwGetTime()) * radius;
+			float camz = cos(glfwGetTime()) * radius;
+			view = glm::lookAt(glm::vec3(camx, 0.0, camz), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		} else {
+			// View matrix
+			// note that we're translating the scene in the reverse direction of where we want to move
+			view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		}
 		shaderProgram->set_mat4("view", view);
 
 		// projection matrix
