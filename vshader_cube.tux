@@ -1,18 +1,15 @@
 #version 420 core
 layout (location = 0) in vec3 position;
-layout (location = 1) in vec3 color;
-layout (location = 2) in vec2 texcord;
-
-out vec3 mycolor;
-out vec2 mytexcord;
+layout (location = 1) in vec2 texcord;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+out vec2 mytexcord;
+
 void main()
 {
 	gl_Position = projection * view * model * vec4(position, 1.0f);
-	mycolor = color;
 	mytexcord = vec2(texcord.x, 1.0f - texcord.y);
 }

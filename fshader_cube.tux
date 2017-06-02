@@ -1,7 +1,5 @@
 #version 420 core
-in vec3 mycolor;
 in vec2 mytexcord;
-uniform float alpha;
 
 out vec4 color;
 
