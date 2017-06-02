@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 02 June 2017 04:26:39 PM IST
+ * Last Modified : Friday 02 June 2017 05:37:54 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -93,11 +93,40 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
-int simple_cube(GLFWwindow* window, int width, int height, int camera)
+class camera *pcam = NULL;
+float delta = 0.0;
+
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	// When a user presses the escape key, we set the WindowShouldClose property to true,
+	// closing the application
+	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		pcam->move(delta, DIR_LEFT);
+
+	if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		pcam->move(delta, DIR_RIGHT);
+
+	if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		pcam->move(delta, DIR_UP);
+
+	if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		pcam->move(delta, DIR_DOWN);
+}
+
+int simple_cube(GLFWwindow* window, int width, int height, int cam)
 {
 	class program *shaderProgram = NULL;
 	class texture *ptexture0 = NULL;
 	class texture *ptexture1 = NULL;
+	float curr_frame_time = 0.0f;
+	float last_frame_time = 0.0f;
+
+	// override generic callback routine
+	if (cam)
+		glfwSetKeyCallback(window, key_callback);
 
 	try {
 		class shader *vertexshader = new shader(VERTEX_SHADER, GL_VERTEX_SHADER);
@@ -106,6 +135,11 @@ int simple_cube(GLFWwindow* window, int width, int height, int camera)
 		shaderProgram = new program(vertexshader->get_id(), fragmentshader->get_id());
 		delete vertexshader;
 		delete fragmentshader;
+
+		if (cam) {
+			pcam = new camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f),
+							  glm::vec3(0.0f, 1.0f, 0.0f), 10.0f);
+		}
 	} catch (int e) {
 		std::cout << "Program failed with errcode: " << e << std::endl;
 		return e;
@@ -146,6 +180,10 @@ int simple_cube(GLFWwindow* window, int width, int height, int camera)
 
 	while(!glfwWindowShouldClose(window))
 	{
+		curr_frame_time = glfwGetTime();
+		delta = curr_frame_time - last_frame_time;
+		last_frame_time = curr_frame_time;
+
 		glfwPollEvents();
 
 		glEnable(GL_DEPTH_TEST);
@@ -161,11 +199,8 @@ int simple_cube(GLFWwindow* window, int width, int height, int camera)
 		glBindVertexArray(VAO);
 
 		glm::mat4 view;
-		if (camera) {
-			float radius = 20.0f;
-			float camx = sin(glfwGetTime()) * radius;
-			float camz = cos(glfwGetTime()) * radius;
-			view = glm::lookAt(glm::vec3(camx, 0.0, camz), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		if (cam) {
+			view = pcam->get_view();
 		} else {
 			// View matrix
 			// note that we're translating the scene in the reverse direction of where we want to move
@@ -175,7 +210,7 @@ int simple_cube(GLFWwindow* window, int width, int height, int camera)
 
 		// projection matrix
 		glm::mat4 projection;
-		projection = glm::perspective(glm::radians(45.0f), GLfloat(width) / GLfloat(height), 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(60.0f), GLfloat(width) / GLfloat(height), 0.1f, 100.0f);
 		shaderProgram->set_mat4("projection", projection);
 
 		for (int i = 0; i < 10; i++) {
