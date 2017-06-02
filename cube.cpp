@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 02 June 2017 02:43:54 PM IST
+ * Last Modified : Friday 02 June 2017 03:25:28 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -24,7 +24,7 @@
 
 #define VERTEX_SHADER		"vshader_cube.tux"
 #define FRAGMENT_SHADER		"fshader_cube.tux"
-#define TEXTURE0_IMAGE_FILE	"textures/wall.jpg"
+#define TEXTURE0_IMAGE_FILE	"textures/container.jpg"
 #define TEXTURE1_IMAGE_FILE	"textures/awesomeface.png"
 
 static GLfloat vertices[] = {
@@ -78,6 +78,19 @@ static GLuint indices [] = {
 	// Right Face
 	20, 21, 23,
 	21, 22, 23
+};
+
+glm::vec3 cubePositions[] = {
+	glm::vec3( 0.0f,  0.0f,  0.0f),
+	glm::vec3( 2.0f,  5.0f, -15.0f),
+	glm::vec3(-1.5f, -2.2f, -2.5f),
+	glm::vec3(-3.8f, -2.0f, -12.3f),
+	glm::vec3( 2.4f, -0.4f, -3.5f),
+	glm::vec3(-1.7f,  3.0f, -7.5f),
+	glm::vec3( 1.3f, -2.0f, -2.5f),
+	glm::vec3( 1.5f,  2.0f, -2.5f),
+	glm::vec3( 1.5f,  0.2f, -1.5f),
+	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
 int simple_cube(GLFWwindow* window, int width, int height)
@@ -147,29 +160,26 @@ int simple_cube(GLFWwindow* window, int width, int height)
 
 		glBindVertexArray(VAO);
 
-		// Translate to world co-ordinates
-		glm::mat4 model;
-		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(40.0f), glm::vec3(1.0f, 0.5f, 0.0f));
-
 		// View matrix
 		glm::mat4 view;
 		// note that we're translating the scene in the reverse direction of where we want to move
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		shaderProgram->set_mat4("view", view);
 
 		// projection matrix
 		glm::mat4 projection;
 		projection = glm::perspective(glm::radians(45.0f), GLfloat(width) / GLfloat(height), 0.1f, 100.0f);
+		shaderProgram->set_mat4("projection", projection);
 
-		int modelLoc = glGetUniformLocation(shaderProgram->get_id(), "model");
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		for (int i = 0; i < 10; i++) {
+			// Translate to world co-ordinates
+			glm::mat4 model;
+			model = glm::translate(model, cubePositions[i]);
+			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.5f, GLfloat(i/10.0)));
+			shaderProgram->set_mat4("model", model);
 
-		int viewLoc = glGetUniformLocation(shaderProgram->get_id(), "view");
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-		int projectionLoc = glGetUniformLocation(shaderProgram->get_id(), "projection");
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		}
 
 		glBindVertexArray(0);
 
