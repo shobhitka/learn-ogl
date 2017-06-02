@@ -3,7 +3,7 @@
    * File Name : shader.h
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Friday 02 June 2017 03:03:03 PM IST
+   * Last Modified : Friday 02 June 2017 04:59:32 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -13,6 +13,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#define DIR_LEFT	1
+#define DIR_RIGHT	2
+#define DIR_UP		3
+#define DIR_DOWN	4
+
 class shader {
 	private:
 		GLuint id;
@@ -46,6 +52,20 @@ class texture {
 		~texture();
 		GLuint get_id();
 		void set_tex_unit(int pid, int unit);
+};
+
+class camera {
+	private:
+		glm::vec3 cam_pos;
+		glm::vec3 cam_front;
+		glm::vec3 cam_up;
+		float cam_speed;
+
+	public:
+		camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed);
+		~camera();
+		void move(float delta, int direction);
+		glm::mat4 get_view();
 };
 
 #endif // __SHADER_H__

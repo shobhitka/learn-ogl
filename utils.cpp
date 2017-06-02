@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Friday 02 June 2017 03:08:29 PM IST
+   * Last Modified : Friday 02 June 2017 05:35:04 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -198,4 +198,39 @@ void texture::set_tex_unit(int pid, int unit)
 	glActiveTexture(GL_TEXTURE0 + unit);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glUniform1i(glGetUniformLocation(pid, szParam), unit);
+}
+		
+camera::camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed)
+{
+	cam_pos = pos;
+	cam_front = front;
+	cam_up = up;
+	cam_speed = speed;
+}
+
+camera::~camera()
+{
+}
+
+void camera::move(float delta, int direction)
+{
+	switch(direction) {
+		case DIR_UP:
+			cam_pos += cam_speed * delta * cam_front;
+			break;
+		case DIR_DOWN:
+			cam_pos -= cam_speed * delta * cam_front;
+			break;
+		case DIR_LEFT:
+			cam_pos -= glm::normalize(glm::cross(cam_front, cam_up)) * cam_speed * delta;
+			break;
+		case DIR_RIGHT:
+			cam_pos += glm::normalize(glm::cross(cam_front, cam_up)) * cam_speed * delta;
+			break;
+	};
+}
+
+glm::mat4 camera::get_view()
+{
+	return glm::lookAt(cam_pos, cam_pos + cam_front, cam_up);
 }
