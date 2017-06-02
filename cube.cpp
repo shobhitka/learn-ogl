@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 02 June 2017 02:38:42 PM IST
+ * Last Modified : Friday 02 June 2017 02:43:54 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -135,8 +135,10 @@ int simple_cube(GLFWwindow* window, int width, int height)
 	{
 		glfwPollEvents();
 
+		glEnable(GL_DEPTH_TEST);
+
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		ptexture0->set_tex_unit(shaderProgram->get_id(), 0);
 		ptexture1->set_tex_unit(shaderProgram->get_id(), 1);
