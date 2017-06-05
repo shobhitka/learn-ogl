@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 02 June 2017 05:37:54 PM IST
+ * Last Modified : Monday 05 June 2017 03:53:34 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -116,6 +116,29 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		pcam->move(delta, DIR_DOWN);
 }
 
+static bool mouse_first_enter = true;
+static float lastX, lastY;
+static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (mouse_first_enter) {
+		lastX = xpos;
+		lastY = ypos;
+		mouse_first_enter = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
+	lastX = xpos;
+	lastY = ypos;
+
+	pcam->mouse_move(xoffset, yoffset);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	pcam->set_fov(yoffset);
+}
+
 int simple_cube(GLFWwindow* window, int width, int height, int cam)
 {
 	class program *shaderProgram = NULL;
@@ -123,6 +146,9 @@ int simple_cube(GLFWwindow* window, int width, int height, int cam)
 	class texture *ptexture1 = NULL;
 	float curr_frame_time = 0.0f;
 	float last_frame_time = 0.0f;
+
+	// Initialise the last mouse position at the center of the screen
+	lastX = width / 2; lastY = height / 2;
 
 	// override generic callback routine
 	if (cam)
@@ -137,8 +163,17 @@ int simple_cube(GLFWwindow* window, int width, int height, int cam)
 		delete fragmentshader;
 
 		if (cam) {
+			// disable cursor inside app window
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+			// register a mouse callback
+			glfwSetCursorPosCallback(window, mouse_callback);
+
+			// register mouse scroll back callback for zooming
+			glfwSetScrollCallback(window, scroll_callback);
+
 			pcam = new camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f),
-							  glm::vec3(0.0f, 1.0f, 0.0f), 10.0f);
+					glm::vec3(0.0f, 1.0f, 0.0f), 0.075f, 100.0f);
 		}
 	} catch (int e) {
 		std::cout << "Program failed with errcode: " << e << std::endl;
@@ -210,7 +245,7 @@ int simple_cube(GLFWwindow* window, int width, int height, int cam)
 
 		// projection matrix
 		glm::mat4 projection;
-		projection = glm::perspective(glm::radians(60.0f), GLfloat(width) / GLfloat(height), 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(pcam->get_fov()), GLfloat(width) / GLfloat(height), 0.1f, 100.0f);
 		shaderProgram->set_mat4("projection", projection);
 
 		for (int i = 0; i < 10; i++) {
