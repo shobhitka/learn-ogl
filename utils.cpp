@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Friday 02 June 2017 05:35:04 PM IST
+   * Last Modified : Monday 05 June 2017 03:51:11 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -200,12 +200,38 @@ void texture::set_tex_unit(int pid, int unit)
 	glUniform1i(glGetUniformLocation(pid, szParam), unit);
 }
 		
-camera::camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed)
+camera::camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed, float fv)
 {
 	cam_pos = pos;
 	cam_front = front;
 	cam_up = up;
 	cam_speed = speed;
+
+	pitch = 0.0f; // 0 degree
+	yaw = -90.0f; // 90 degree
+
+	max_fov = fv;
+	fov = 45.0f; // start at 45 degree
+}
+
+float camera::get_sensitivity()
+{
+	return cam_speed;
+}
+
+void camera::set_fov(float yoffset)
+{
+	if(fov >= 1.0f && fov <= max_fov)
+		fov -= yoffset;
+	if(fov <= 1.0f)
+		fov = 1.0f;
+	if(fov >= max_fov)
+		fov = max_fov;
+}
+
+float camera::get_fov()
+{
+	return fov;
 }
 
 camera::~camera()
@@ -228,6 +254,29 @@ void camera::move(float delta, int direction)
 			cam_pos += glm::normalize(glm::cross(cam_front, cam_up)) * cam_speed * delta;
 			break;
 	};
+}
+
+void camera::mouse_move(float xoffset, float yoffset)
+{
+	// take into account sensitivity/speed
+	xoffset *= cam_speed;
+	yoffset *= cam_speed;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	// bounds
+	if (yaw > 89.0f)
+		yaw = 89.0f;
+	if (pitch < -89.0f)
+		pitch = -89.0f;
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+	cam_front = glm::normalize(front);
 }
 
 glm::mat4 camera::get_view()
