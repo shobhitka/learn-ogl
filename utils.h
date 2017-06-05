@@ -3,7 +3,7 @@
    * File Name : shader.h
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Monday 05 June 2017 03:49:57 PM IST
+   * Last Modified : Monday 05 June 2017 05:45:15 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -64,9 +64,10 @@ class camera {
 		float cam_speed;
 		float fov;
 		float max_fov;
+		float sensitivity;
 
 	public:
-		camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed, float max_fv);
+		camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed, float sensitivity, float max_fv);
 		~camera();
 		void move(float delta, int direction);
 		glm::mat4 get_view();

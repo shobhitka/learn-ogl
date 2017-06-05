@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Monday 05 June 2017 03:53:34 PM IST
+ * Last Modified : Monday 05 June 2017 05:56:21 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -173,7 +173,7 @@ int simple_cube(GLFWwindow* window, int width, int height, int cam)
 			glfwSetScrollCallback(window, scroll_callback);
 
 			pcam = new camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f),
-					glm::vec3(0.0f, 1.0f, 0.0f), 0.075f, 100.0f);
+					glm::vec3(0.0f, 1.0f, 0.0f), 5.0f, 0.05f, 100.0f);
 		}
 	} catch (int e) {
 		std::cout << "Program failed with errcode: " << e << std::endl;

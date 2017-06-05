@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Monday 05 June 2017 03:51:11 PM IST
+   * Last Modified : Monday 05 June 2017 05:56:33 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -200,18 +200,19 @@ void texture::set_tex_unit(int pid, int unit)
 	glUniform1i(glGetUniformLocation(pid, szParam), unit);
 }
 		
-camera::camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed, float fv)
+camera::camera(glm::vec3 pos, glm::vec3 front, glm::vec3 up, float speed, float sensitivity, float fv)
 {
 	cam_pos = pos;
 	cam_front = front;
 	cam_up = up;
 	cam_speed = speed;
+	this->sensitivity = sensitivity;
 
 	pitch = 0.0f; // 0 degree
 	yaw = -90.0f; // 90 degree
 
 	max_fov = fv;
-	fov = 45.0f; // start at 45 degree
+	fov = fv; // start at 45 degree
 }
 
 float camera::get_sensitivity()
@@ -259,15 +260,15 @@ void camera::move(float delta, int direction)
 void camera::mouse_move(float xoffset, float yoffset)
 {
 	// take into account sensitivity/speed
-	xoffset *= cam_speed;
-	yoffset *= cam_speed;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
 
 	yaw += xoffset;
 	pitch += yoffset;
 
 	// bounds
-	if (yaw > 89.0f)
-		yaw = 89.0f;
+	if (pitch > 89.0f)
+		pitch = 89.0f;
 	if (pitch < -89.0f)
 		pitch = -89.0f;
 
