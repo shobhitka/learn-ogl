@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Friday 02 June 2017 04:22:21 PM IST
+ * Last Modified : Wednesday 07 June 2017 03:20:01 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -26,7 +26,7 @@ void reset_screen()
 	cout << "\033[2J\033[1;1H";
 }
 
-#define TEST_SAMPLE_COUNT	8
+#define TEST_SAMPLE_COUNT	9
 void menu()
 {
 	cout << "Supported Samples\n";
@@ -38,7 +38,8 @@ void menu()
 	cout << "5: Basic texture example\n";
 	cout << "6: Rotating 3D Cube\n";
 	cout << "7: Rotating 3D Cube with camera view\n";
-	cout << "8: Exit\n";
+	cout << "8: Basic lights exmaple\n";
+	cout << "9: Exit\n";
 	cout << "========================================\n";
 }
 
@@ -148,6 +149,9 @@ int main(int argc, char *argv[])
 				break;
 			case 7:
 				simple_cube(window, 800, 600, 1);
+				break;
+			case 8:
+				simple_light(window, 800, 600);
 				break;
 			case TEST_SAMPLE_COUNT:
 				cout << ("Thanks, bye.\n");
