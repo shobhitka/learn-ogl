@@ -3,7 +3,7 @@
    * File Name : shader.h
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Monday 05 June 2017 05:45:15 PM IST
+   * Last Modified : Wednesday 07 June 2017 03:02:58 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -41,6 +41,7 @@ class program {
 		GLuint get_id();
 		void use();
 		void set_mat4(const char *name, glm::mat4 value);
+		void set_vec3(const char *name, glm::vec3 value);
 };
 
 class texture {

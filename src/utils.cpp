@@ -3,7 +3,7 @@
    * File Name : shader.cpp
    * Purpose :
    * Creation Date : 28-04-2017
-   * Last Modified : Monday 05 June 2017 05:56:33 PM IST
+   * Last Modified : Wednesday 07 June 2017 03:16:57 PM IST
    * Created By : Shobhit Kumar <kumar@shobhit.info>
 
 *************************************************************/
@@ -122,6 +122,12 @@ void program::set_mat4(const char *name, glm::mat4 value)
 {
 	int loc = glGetUniformLocation(id, name);
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void program::set_vec3(const char *name, glm::vec3 value)
+{
+	int loc = glGetUniformLocation(id, name);
+	glUniform3f(loc, value.x, value.y, value.z);
 }
 
 texture::texture(const char *image_file, GLenum type, int load_type)
