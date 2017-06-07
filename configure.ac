@@ -25,5 +25,6 @@ PKG_CHECK_MODULES(x11, x11)
 
 PKG_CHECK_MODULES([DEPS], [glfw3 glew glu gl xrandr xxf86vm xi xinerama x11])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+				 src/Makefile])
 AC_OUTPUT

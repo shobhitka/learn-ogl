@@ -3,7 +3,7 @@
  * File Name : triangle.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Thursday 01 June 2017 07:30:13 PM IST
+ * Last Modified : Wednesday 07 June 2017 02:14:36 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -22,8 +22,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define VERTEX_SHADER_SIMPLE_TRIANGLE	"vshader_btext.tux"
-#define FRAGMENT_SHADER_SIMPLE_TRIANGLE	"fshader_btext.tux"
+#define VERTEX_SHADER_SIMPLE_TRIANGLE	"shaders/vshader_btext.tux"
+#define FRAGMENT_SHADER_SIMPLE_TRIANGLE	"shaders/fshader_btext.tux"
 #define TEXTURE0_IMAGE_FILE				"textures/wall.jpg"
 #define TEXTURE1_IMAGE_FILE				"textures/awesomeface.png"
 

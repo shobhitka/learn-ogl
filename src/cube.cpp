@@ -3,7 +3,7 @@
  * File Name : cube.cpp
  * Purpose :
  * Creation Date : 27-04-2017
- * Last Modified : Monday 05 June 2017 05:56:21 PM IST
+ * Last Modified : Wednesday 07 June 2017 02:14:06 PM IST
  * Created By : Shobhit Kumar <kumar@shobhit.info>
  *
  * Code heavily borrowed from https://learnopengl.com
@@ -22,8 +22,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define VERTEX_SHADER		"vshader_cube.tux"
-#define FRAGMENT_SHADER		"fshader_cube.tux"
+#define VERTEX_SHADER		"shaders/vshader_cube.tux"
+#define FRAGMENT_SHADER		"shaders/fshader_cube.tux"
 #define TEXTURE0_IMAGE_FILE	"textures/container.jpg"
 #define TEXTURE1_IMAGE_FILE	"textures/awesomeface.png"
 
